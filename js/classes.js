@@ -1,3 +1,10 @@
+// put audios to have sound effects on the game 
+const sounds = {
+  attack1: new Audio("../attack.mp3"),
+  getHit: new Audio("../getHit.mp3"),
+  death: new Audio("../over.mp3")
+}
+
 class Sprite {
   constructor({
     possition,
@@ -113,11 +120,19 @@ class Fighter extends Sprite {
   //   }
   // }
 
+  // edit in gitHit() to but the sound effects 
+  // when the characthes get hit from each others and end ti death
   getHit() {
     this.health -= 20;
+    sounds.getHit.currentTime = 0;
+    sounds.getHit.play();
+    
     if (this.health <= 0) {
       this.switchSprite("death");
-    } else {
+      sounds.death.currentTime = 0;
+      sounds.death.play();
+    }
+    else {
       this.switchSprite("getHit");
     }
     // this.isAttacking = true;
@@ -153,10 +168,14 @@ class Fighter extends Sprite {
     // console.log("done");
   }
 
+  // edit in attack(num) to but the sound effects 
+  // when the characters attack each other by the sword 
   attack(num) {
     switch (num) {
       case "1":
         this.switchSprite("attack1");
+        sounds.attack1.currentTime = 0;
+        sounds.attack1.play();
         break;
       case "2":
         this.switchSprite("attack2");
